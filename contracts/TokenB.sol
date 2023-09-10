@@ -7,4 +7,7 @@ contract TokenB is ERC20 {
     constructor() ERC20("TokenB", "TOB") {
         _mint(msg.sender, 1000000 * 10 ** decimals());
     }
+        function mint( uint256 amount) public {
+        _mint(msg.sender, amount);
+    }
 }

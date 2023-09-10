@@ -15,7 +15,7 @@ async function main() {
   console.log("Token deployed to:", tokenBContract.target);
 
   // Deploy the Exchange Contract
-  // const exchangeContract = await hre.ethers.deployContract("Exchange", [
+  // const exchangeContract = await hre.ethers.deployContract("Exchange", []
   //   tokenContract.target,
   // ]);
   // await exchangeContract.waitForDeployment();

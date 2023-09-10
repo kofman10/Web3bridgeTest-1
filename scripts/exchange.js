@@ -5,8 +5,8 @@ async function sleep(ms) {
 }
 
 async function main() {
-    const tokenA= '0x24e806FB5870C84af8Cf1C2728Bbc67764002945'
-    const tokenB= '0x36b8681581529ec24Be3D9146488f6fC23C658E1'
+    const tokenA= '0xC92b5EaD612e535Cf322d7180e562f6DCaa9E867'
+    const tokenB= '0x10498037Bf277d0b9D355d879D6992613913596d'
 
   const exchangeContract = await hre.ethers.deployContract("Exchange", [tokenA, tokenB]);
   await exchangeContract.waitForDeployment();
