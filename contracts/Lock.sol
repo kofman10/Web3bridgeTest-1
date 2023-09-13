@@ -1,34 +1,39 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.9;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.18;
 
-// Uncomment this line to use console.log
-// import "hardhat/console.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Lock {
-    uint public unlockTime;
-    address payable public owner;
+contract LMAOToken is ERC20, Ownable {
+    address public feeAddress;
+    uint256 public feePercentage = 8; // 8% fee
 
-    event Withdrawal(uint amount, uint when);
-
-    constructor(uint _unlockTime) payable {
-        require(
-            block.timestamp < _unlockTime,
-            "Unlock time should be in the future"
-        );
-
-        unlockTime = _unlockTime;
-        owner = payable(msg.sender);
+    constructor(address _feeAddress) ERC20("LMAO Token", "LMAO") {
+        feeAddress = _feeAddress;
     }
 
-    function withdraw() public {
-        // Uncomment this line, and the import of "hardhat/console.sol", to print a log in your terminal
-        // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
+    // Function to set the fee address
+    function setFeeAddress(address _newFeeAddress) external onlyOwner {
+        feeAddress = _newFeeAddress;
+    }
 
-        require(block.timestamp >= unlockTime, "You can't withdraw yet");
-        require(msg.sender == owner, "You aren't the owner");
+    // Function to set the fee percentage
+    function setFeePercentage(uint256 _newFeePercentage) external onlyOwner {
+        require(_newFeePercentage <= 100, "Fee percentage cannot exceed 100%");
+        feePercentage = _newFeePercentage;
+    }
 
-        emit Withdrawal(address(this).balance, block.timestamp);
+    // Transfer function with a fee
+    function transfer(address recipient, uint256 amount) public override returns (bool) {
+        uint256 feeAmount = (amount * feePercentage) / 100;
+        uint256 transferAmount = amount - feeAmount;
 
-        owner.transfer(address(this).balance);
+        // Transfer tokens minus the fee
+        _transfer(_msgSender(), recipient, transferAmount);
+
+        // Transfer the fee to the fee address
+        _transfer(_msgSender(), feeAddress, feeAmount);
+
+        return true;
     }
 }
