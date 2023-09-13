@@ -27,3 +27,11 @@ interface IUniswap{
      function approve(address spender, uint rawAmount) external returns (bool);
      function balanceOf(address _owner) external view returns (uint256 balance);
 }
+interface IUniswapV2Factory {
+   function getPair(address tokenA, address tokenB) external view returns (address pair);
+}
+
+interface IUniswapV2Pair {
+     function approve(address spender, uint value) external returns (bool);
+     function balanceOf(address owner) external view returns (uint);
+}
