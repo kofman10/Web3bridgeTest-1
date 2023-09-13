@@ -1,13 +1,5 @@
-# Sample Hardhat Project
+LMAO -  https://sepolia.etherscan.io/address/0xcc742264aad4c7f968c87AF50475C44E18F1d66A#code
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+WLMAO - https://sepolia.etherscan.io/address/0x74739F1eb39D31CB96E43700cdd9c3623aF6034A#code
 
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
 ```

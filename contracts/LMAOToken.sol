@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract LMAOToken is ERC20, Ownable {
     address public feeAddress;
-    uint256 public feePercentage = 8; 
+    uint256 public feePercentage = 3; 
 
     constructor(address _feeAddress) ERC20("LMAO Token", "LMAO") {
         feeAddress = _feeAddress;
@@ -18,12 +18,11 @@ contract LMAOToken is ERC20, Ownable {
         uint256 feeAmount = (amount * feePercentage) / 100;
         uint256 transferAmount = amount - feeAmount;
 
-        // Transfer tokens minus the fee
-        _transfer(_msgSender(), recipient, transferAmount);
+        _transfer(msg.sender, recipient, transferAmount);
 
-        // Transfer the fee to the fee address
-        _transfer(_msgSender(), feeAddress, feeAmount);
+        _transfer(msg.sender, feeAddress, feeAmount);
 
         return true;
     }
+
 }
